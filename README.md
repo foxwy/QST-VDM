@@ -2,7 +2,7 @@
 
 The official PyTorch implementation of the paper named `Learning Quantum Distributions with Variational Diffusion Models`, has been accepted in IFAC World Congress 2023 (The 22nd World Congress of the International Federation of Automatic Control).
 
-<img title="" src="VDM.bmp" alt="" style="zoom:40%;">
+<img title="" src="VDM.png" alt="loading-ag-145" style="zoom:40%;" data-align="center">
 
 ### **Abstract**
 
@@ -26,6 +26,7 @@ This code was tested on the computer with a single AMD Ryzen 5 2600X CPU @ 3.60G
 - tqdm==4.64.1
 
 You can install code environments by:
+
 ```bash
 pip install -r requirements.txt
 ```
