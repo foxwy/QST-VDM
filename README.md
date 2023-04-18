@@ -104,7 +104,7 @@ The samples learned from three models are saved in [`results/sample_P`](results/
 
 ## **Acknowledgments**
 
-This code is standing on the shoulders of giants. We want to thank the following contributors that our code is based on: [POVM_GENMODEL](https://github.com/carrasqu/POVM_GENMODEL), [QST-NNGMs-FNN](https://github.com/foxwy/QST-NNGMs-FNN).
+This code is standing on the shoulders of giants. We want to thank the following contributors that our code is based on: [POVM_GENMODEL](https://github.com/carrasqu/POVM_GENMODEL), [AQT](https://github.com/KimGroup/AQT), [QST-NNGMs-FNN](https://github.com/foxwy/QST-NNGMs-FNN).
 
 ## **License**
 
