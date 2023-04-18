@@ -2,7 +2,7 @@
 # @Author: foxwy
 # @Date:   2021-04-30 09:48:23
 # @Last Modified by:   yong
-# @Last Modified time: 2023-03-30 11:00:35
+# @Last Modified time: 2023-03-30 16:45:58
 # @Function: Provide some of the most basic functions
 # @Paper: Ultrafast quantum state tomography with feed-forward neural networks
 
@@ -17,9 +17,6 @@ from torch.nn.functional import softmax
 
 filepath = os.path.abspath(os.path.join(os.getcwd(), '../..'))
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
-
-sys.path.append('..')
-from evaluation.ncon import ncon
 
 
 def get_default_device():
@@ -289,18 +286,7 @@ def semidefinite_adjust(M, eps=1e-08):
         return True
     else:
         return False
-
-
-# Cal_cond: 计算矩阵广义逆和条件数
-def Cal_cond(M_all):  # 矩阵条件数
-    t = ncon((M_all, M_all), ([-1, 1, 2], [-2, 2, 1]))
-    #it = np.linalg.inv(t)
-    t_T_con = t.T.conjugate()
-    it = (np.linalg.inv(t_T_con.dot(t))).dot(t_T_con)
-    it_cond = np.linalg.cond(it)
-
-    return it, it_cond
-
+        
 
 def factorization(num):
     """Factoring a number"""

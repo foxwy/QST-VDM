@@ -2,7 +2,7 @@
 # @Author: yong
 # @Date:   2023-03-30 11:01:27
 # @Last Modified by:   yong
-# @Last Modified time: 2023-03-30 15:42:57
+# @Last Modified time: 2023-03-30 17:37:30
 # @Paper: Learning Quantum Distributions with Variational Diffusion Models
 
 import argparse
@@ -60,17 +60,19 @@ def Ex_2(args):
     K = 4
 
     if args.model == "RNN":
-        N_epoch = 150
+        N_epoch = 15
     elif args.model == "AQT":
-        N_epoch = 100
+        N_epoch = 10
     else:
-        N_epoch = 1000
+        N_epoch = 10
         N_batch = 500
 
     for i in [2, 4, 6, 8, 10]:
+        print('number of qubits:', i)
         N_q = i
         N_s = 10**3 * N_q
-        N_sample = 10**4 * N_q**2
+        #N_sample = 10**4 * N_q**2
+        N_sample = 10**3
 
         if args.model == "RNN":
             trainFileName = 'datasets/data/' + state_name + '_1.0_' + povm + '_train_N' + str(N_q) + '.txt'
@@ -86,9 +88,9 @@ def Ex_2(args):
             data_train = np.loadtxt(trainFileName)[:N_s].astype(int)
             samples = VDM(data_train, N_sample, N_epoch, N_batch, n_steps=500)
 
-        samples, P = array_posibility_unique(samples)
-        np.savetxt('results/sample_P/' + args.model + '_' + state_name + '_' + povm + '_N' + str(N_q) + '_sample.txt', samples, '%d')
-        np.savetxt('results/sample_P/' + args.model + '_' + state_name + '_' + povm + '_N' + str(N_q) + '_P.txt', P)
+        #samples, P = array_posibility_unique(samples)
+        #np.savetxt('results/sample_P/' + args.model + '_' + state_name + '_' + povm + '_N' + str(N_q) + '_sample.txt', samples, '%d')
+        #np.savetxt('results/sample_P/' + args.model + '_' + state_name + '_' + povm + '_N' + str(N_q) + '_P.txt', P)
 
 
 if __name__ == '__main__':

@@ -1,6 +1,7 @@
 import time
 import numpy as np
 import torch
+from torchsummary import summary
 
 import sys
 sys.path.append('../../')
@@ -26,20 +27,14 @@ def AQT(data_train, N_samples, K, n_qubits, N_epoch, Nl=2, dmodel=64, Nh=4):
     model = A.InitializeModel(
         Nq, Nlayer=Nl, dmodel=dmodel, Nh=Nh, Na=K, device=device).to(device)
 
+    para = sum([p.nelement() for p in model.parameters()])
+    print('Model {} : params: {:4f}M'.format(model._get_name(), para / 10**6))
+
     t = time.time()
     model, loss = A.TrainModel(
         model, data, device, batch_size=200, lr=1e-3, Nep=Nep)
-    #model.to('cpu')
     print('Took %f minutes' % ((time.time() - t) / 60))
 
     samples, _ = A.sample_mp(model, N_samples, 10**5, 'cuda')
-    '''
-    samples, s_idx = np.unique(samples, axis=0, return_index=True)
-    pt_model = pt_model[s_idx]
-    print('sample num:', len(samples))'''
-    '''
-    samples, _ = array_posibility_unique(samples)
-    pt_model = model.p(samples)'''
-    #samples, pt_model = F.POVMProbTable(model.cpu())
 
     return samples

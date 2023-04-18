@@ -2,7 +2,7 @@
 # @Author: WY
 # @Date:   2022-09-03 15:51:59
 # @Last Modified by:   yong
-# @Last Modified time: 2023-03-30 15:43:10
+# @Last Modified time: 2023-03-30 17:29:30
 # @Paper: Learning Quantum Distributions with Variational Diffusion Models
 
 # -----internel library-----
@@ -323,6 +323,8 @@ def VDM(data_train, N_samples, N_epoch, N_batch, n_steps=100):
     #net = BNet(input_dim, output_dim, 4, input_dim, device)
 
     net = Transformer(input_dim, output_dim, num_layers=2, device=device)
+    para = sum([p.nelement() for p in net.parameters()])
+    print('Model {} : params: {:4f}M'.format(net._get_name(), para / 10**6))
 
     diffusion = GaussianDiffusion(
         net,

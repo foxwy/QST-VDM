@@ -217,6 +217,7 @@ class LatentAttention():
             rem = basis_s - n_calls * self.batchsize
             ext = self.batchsize - rem
 
+        saver = tf.train.Saver()
         with tf.Session() as sess:
             sess.run(tf.global_variables_initializer())
 
@@ -294,4 +295,32 @@ class LatentAttention():
 
                                 pbar.set_description("sampling data from RNN")
                             pbar.close()
+            saver.save(sess, 'models/RNN/model/model'+str(self.max_length))
+
         return samples
+
+
+if __name__ == '__main__':
+    from tensorflow.python import pywrap_tensorflow
+    import os
+    import numpy as np
+    model_dir = "model"
+    checkpoint_path = os.path.join(model_dir, "model10")
+    reader = tf.train.NewCheckpointReader(checkpoint_path)
+    var_to_shape_map = reader.get_variable_to_shape_map()
+    total_parameters = 0
+    for key in var_to_shape_map:#list the keys of the model
+        # print(key)
+        # print(reader.get_tensor(key))
+        shape = np.shape(reader.get_tensor(key))  #get the shape of the tensor in the model
+        shape = list(shape)
+        # print(shape)
+        # print(len(shape))
+        variable_parameters = 1
+        for dim in shape:
+            # print(dim)
+            variable_parameters *= dim
+        # print(variable_parameters)
+        total_parameters += variable_parameters
+
+    print(total_parameters/10**6)
